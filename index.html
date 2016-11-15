@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Doggy Trivia</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+<body>
+<div>
+	<img id="heading" src="assets/images/trivia.png" alt="TRIVIA">
+</div>
+<br><br><br><br><br>
+<!-- Display Board -->
+<div id="container">
+
+<br><br>
+<!-- Timer -->
+<div id="timer"></div>
+<div id="reStartCorrect"></div>
+	
+	<!-- Question -->
+	<br><br><br>
+	<div id="question"></div>
+	<div id="totalScore"></div>
+	<br><br>
+	<!-- Answer Choices -->
+	<div id="imageCheck"></div>
+	<div id="choice1" isCorrect=""></div>
+	<div id="correctScore"></div>
+	<br>
+	<div id="choice2" isCorrect=""></div>
+	<br>
+	<div id="choice3" isCorrect=""></div>
+	<div id="correctAnswer"></div>
+	<div id="wrongScore"></div>
+	<br>
+	<div id="choice4" isCorrect=""></div>
+	<!-- Restart Button -->
+	<div id="reStart"></div>
+
+	
+</div>
+
+<!-- Soundtrack for winning and Losing -->
+	<div>
+		<audio src="assets/audio/DogWoof.mp3" id="winSound"></audio>
+		<audio src="assets/audio/DogGrowl.mp3" id="loserSound" ></audio>
+	</div>
+
+
+
+
+<!-- link to external JavaScript file -->
+ <script type='text/javascript' src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
+<script type="text/javascript" src="assets/javascript/trivia.js" ></script>
+
+</body>
+</html>

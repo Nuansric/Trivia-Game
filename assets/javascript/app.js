@@ -167,6 +167,7 @@
 		// and call the startTime fuction to start counting down time and display the first question
 		startTime();
 
+
 	} //reset function
 
 
@@ -174,6 +175,13 @@
 
 		function startTime(){
 			counter = setInterval(nextQuestion, 1000);
+
+		}
+
+		function resetTimer(){
+			// stop and reset time timer
+				clearInterval(counter);
+				timeCount = 31;
 
 		}
 
@@ -190,13 +198,13 @@
 				
 				// increase the [i] for the next question
 				count++;
-				// increase the wrong score
-				wrong++;
-				// play losing sound
-				playlosesound();
+				
+				// play losing function
+				playlosefunction();
+
 				// stop and reset time timer
-				clearInterval(counter);
-				timeCount = 31;
+				resetTimer();
+
 				// display the timeout page
 				timeOutPage();
 
@@ -206,12 +214,10 @@
 			if((count == (questionSet.length - 1)) && (timeCount == 0)){
 				
 				// increase the wrong score
-				wrong++;
+				playlosefunction();
 
 				// stop and reset time timer
-				clearInterval(counter);
-				timeCount=31;
-
+				resetTimer();
 				// display the restart page
 				reStartPage();
 
@@ -255,13 +261,8 @@
 			$("#reStart").empty();
 
 			// Empty all these div
-			$("#reStartCorrect").empty();
-			$("#totalScore").empty();
-			$("#imageCheck").empty();
-			$("#correctScore").empty();
-			$("#wrongScore").empty();
-			$("#correctAnswer").empty();
-
+			$("#reStartCorrect, #totalScore, #imageCheck, #correctScore, #wrongScore, #correctAnswer").empty();
+			
 	
 		}
 
@@ -320,15 +321,12 @@
 				//if the data attrubute of the clicked div is true and it is not the last question
 				if (($(this).data('isCorrect') == "true") && (count != questionSet.length)){
 					
-					//increase the correct score
-					correct ++;
 
-					//play the winning sound
-					playwinsound();
+					//play the winning function
+					playwinfunction();
 					
 					//clear and reset the timer
-					clearInterval(counter);
-					timeCount = 31;
+					resetTimer();
 					
 					// call correctPage Function
 					correctPage();
@@ -337,15 +335,12 @@
 
 				//if the data attrubute of the clicked div is false and it is not the last question
 				else if(($(this).data('isCorrect') == "false") && (count != questionSet.length)) {
-					// increae the wrong score
-					wrong ++;
-					
-					//play losing sound
-					playlosesound();
+										
+					//play losing function
+					playlosefunction();
 					
 					//clear and reset timer
-					clearInterval(counter);
-					timeCount = 31;
+					resetTimer();
 					
 					//call wrongPage Function
 					wrongPage();
@@ -353,35 +348,27 @@
 				//if the data attrubute of the clicked div is true and it is the last question
 				if ((count == questionSet.length) && ($(this).data('isCorrect') == "true")) {
 				
-				//clear and reset timer
-				clearInterval(counter);
-				timeCount=31;
+					//clear and reset timer
+					resetTimer();
+					
+					//play the winning function
+					playwinfunction();
 
-				//increase the correct score
-				correct++;
-				
-				//play the winning sound
-				playwinsound();
-
-				//call reStartPage Function
-				reStartPage();
+					//call reStartPage Function
+					reStartPage();
 
 			} 
-			//if the data attrubute of the clicked div is false and it is the last question
-			else if ((count == questionSet.length) && ($(this).data('isCorrect') == "false")){
+				//if the data attrubute of the clicked div is false and it is the last question
+				else if ((count == questionSet.length) && ($(this).data('isCorrect') == "false")){
 
-				//clear and reset timer
-				clearInterval(counter);
-				timeCount=31;
-				
-				// increae the wrong score
-				wrong++;
-				
-				//play the losing sound
-				playlosesound();
+					//clear and reset timer
+					resetTimer();
+					
+					//play the losing function
+					playlosefunction();
 
-				//call reStartPage Function
-				reStartPage();
+					//call reStartPage Function
+					reStartPage();
 
 			}
 
@@ -392,21 +379,15 @@
 
 // Function for correct answer page
 		function correctPage() {
+			
 			//Empty the  div
-			$("#question").empty();
-			$("#reStartCorrect").empty();
-			$("#totalScore").empty();
-			$("#wrongScore").empty();
-			$("#correctScore").empty();
-
+			$("#reStartCorrect, #totalScore, #wrongScore, #correctScore").empty();
+			
 			//Display the correct image
 			$("#imageCheck").html("<img src = ' assets/images/correct.png' width='200px' />");
 			
-			// Empty answer choices
-			$("#choice1").empty();
-			$("#choice2").empty();
-			$("#choice3").empty();
-			$("#choice4").empty();
+			// Empty the question and answer choices
+			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
 			
 			// Display the correct answer
 			$("#correctAnswer").html("<h2>Correct Answer  :  " + questionSet[count-1].answers[questionSet[count-1].correctAnswerNdx].answer + "</h2>");
@@ -424,20 +405,13 @@
 		function wrongPage() {
 
 			//Empty the  div
-			$("#question").empty();
-			$("#reStartCorrect").empty();
-			$("#totalScore").empty();
-			$("#wrongScore").empty();
-			$("#correctScore").empty();
-
+			$("#reStartCorrect, #totalScore, #wrongScore, #correctScore").empty();
+			
 			//Display the correct image
 			$("#imageCheck").html("<img src = ' assets/images/wrong.png' width='200px' />");
 			
-			// Empty answer choices
-			$("#choice1").empty();
-			$("#choice2").empty();
-			$("#choice3").empty();
-			$("#choice4").empty();
+			// Empty the question and answer choices
+			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
 			
 			// Display the correct answer
 			$("#correctAnswer").html("<h2>Correct Answer  :  " + questionSet[count-1].answers[questionSet[count-1].correctAnswerNdx].answer + "</h2>");
@@ -454,27 +428,24 @@
 
 //Function for summary score page and restart
 	function reStartPage(){
-			//Empty Timer
-			$("#timer").empty();
+			//Empty divs
+
+			$("#timer, #imageCheck, #correctAnswer").empty();
 			// Display the correct answer for the very last question
 			$("#reStartCorrect").html("Correct Answer: "  + questionSet[count -1].answers[questionSet[count -1].correctAnswerNdx].answer);
-			//empty this div
-			$("#question").empty();
+			
+			// Empty the question and answer choices
+			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
+
 			// Display Total Score
 			$("#totalScore").html("Total Score");
-			//empty this div
-			$("#imageCheck").empty();
-			$("#correctAnswer").empty();
-			$("#choice1").empty();
+
+			
 			//Display the correct score
 			$("#correctScore").html("<h2>Correct  :  " + correct + "</h2>");
-			//empty this div
-			$("#choice2").empty();			
-			$("#choice3").empty();
+			
 			//Display the wrong score
 			$("#wrongScore").html("<h2>Wrong  :  " + wrong + "</h2>");
-			//empty this div
-			$("#choice4").empty();
 
 			// creat vairable for the restart button
 			var reStartButton = $("<button>");
@@ -487,17 +458,19 @@
 	} // reStartPage function
 
 
-// Function of Winning sound
+// Function of Winning function
 		
-		function playwinsound (){
+		function playwinfunction(){
+			correct++;
 			
 			var audioElement = $("#winSound");
 			audioElement.get(0).play();
 
 		}
 
-		// Function of Losing sound
-		function playlosesound(){
+		// Function of Losing function
+		function playlosefunction(){
+			wrong++;
 			
 			var audioElement = $("#loserSound");
 			audioElement.get(0).play();

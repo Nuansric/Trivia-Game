@@ -192,6 +192,7 @@
 		    // call the question page function
 		    displayQuestion();
 
+
 			
 		    // if the question displayed is not the last question and the time left is equal to zero, to 
 			if((count != (questionSet.length -1)) && (timeCount == 0)) {
@@ -202,8 +203,11 @@
 				// play losing function
 				playlosefunction();
 
-				// stop and reset time timer
+
+				 // stop and reset time timer
 				resetTimer();
+
+
 
 				// display the timeout page
 				timeOutPage();
@@ -216,8 +220,11 @@
 				// increase the wrong score
 				playlosefunction();
 
-				// stop and reset time timer
+				 // stop and reset time timer
 				resetTimer();
+
+
+				
 				// display the restart page
 				reStartPage();
 
@@ -273,16 +280,10 @@
 			// Show the user that time is up in place of the question in the Browser
 			$("#reStartCorrect").html("<h1><br><br>TIME IS UP</h1>");
 			//empty this div
-			$("#question").empty();
-			$("#totalScore").empty();
-			$("#imageCheck").empty();
-			$("#correctScore").empty();
-			$("#wrongScore").empty();
-			// Empty all answer choices
-			$("#choice1").empty();
-			$("#choice2").empty();
-			$("#choice3").empty();
-			$("#choice4").empty();
+			$("#totalScore, #imageCheck, #correctScore, #wrongScore").empty();
+			
+			// Empty the question and answer choices
+			$("#question, .ansChoice").empty();
 
 			// Replace answer choice with the correct answer
 			$("#correctAnswer").html("<h2>Correct Answer: " + questionSet[count-1].answers[questionSet[count-1].correctAnswerNdx].answer + "</h2>");
@@ -313,10 +314,13 @@
 		function answerCheck(){
 
 			//when an answer choices is click
-			$("#choice1, #choice2, #choice3, #choice4").on("click", function(e){
+			$(".ansChoice").on("click", function(e){
 				
 				//increase the[i]
 				count++;
+
+				// stop and reset time timer
+				resetTimer();
 
 				//if the data attrubute of the clicked div is true and it is not the last question
 				if (($(this).data('isCorrect') == "true") && (count != questionSet.length)){
@@ -325,8 +329,6 @@
 					//play the winning function
 					playwinfunction();
 					
-					//clear and reset the timer
-					resetTimer();
 					
 					// call correctPage Function
 					correctPage();
@@ -339,8 +341,6 @@
 					//play losing function
 					playlosefunction();
 					
-					//clear and reset timer
-					resetTimer();
 					
 					//call wrongPage Function
 					wrongPage();
@@ -348,8 +348,6 @@
 				//if the data attrubute of the clicked div is true and it is the last question
 				if ((count == questionSet.length) && ($(this).data('isCorrect') == "true")) {
 				
-					//clear and reset timer
-					resetTimer();
 					
 					//play the winning function
 					playwinfunction();
@@ -361,8 +359,7 @@
 				//if the data attrubute of the clicked div is false and it is the last question
 				else if ((count == questionSet.length) && ($(this).data('isCorrect') == "false")){
 
-					//clear and reset timer
-					resetTimer();
+					
 					
 					//play the losing function
 					playlosefunction();
@@ -387,7 +384,7 @@
 			$("#imageCheck").html("<img src = ' assets/images/correct.png' width='200px' />");
 			
 			// Empty the question and answer choices
-			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
+			$("#question, .ansChoice").empty();
 			
 			// Display the correct answer
 			$("#correctAnswer").html("<h2>Correct Answer  :  " + questionSet[count-1].answers[questionSet[count-1].correctAnswerNdx].answer + "</h2>");
@@ -411,7 +408,7 @@
 			$("#imageCheck").html("<img src = ' assets/images/wrong.png' width='200px' />");
 			
 			// Empty the question and answer choices
-			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
+			$("#question, .ansChoice").empty();
 			
 			// Display the correct answer
 			$("#correctAnswer").html("<h2>Correct Answer  :  " + questionSet[count-1].answers[questionSet[count-1].correctAnswerNdx].answer + "</h2>");
@@ -435,7 +432,7 @@
 			$("#reStartCorrect").html("Correct Answer: "  + questionSet[count -1].answers[questionSet[count -1].correctAnswerNdx].answer);
 			
 			// Empty the question and answer choices
-			$("#question, #choice1, #choice2, #choice3, #choice4").empty();
+			$("#question, .ansChoice").empty();
 
 			// Display Total Score
 			$("#totalScore").html("Total Score");
